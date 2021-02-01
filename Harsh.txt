@@ -1,0 +1,7 @@
+File Password: Hello
+File PIN: 1234
+Balance: 123654
+Bank Name: SBI
+Card Number: 123654789963
+Expiry: December-2024
+CVV: 248
