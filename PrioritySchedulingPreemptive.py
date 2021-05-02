@@ -16,32 +16,28 @@ waitingTime = list()
 responseTime = list()
 processClock = list()
 
-tat = wt = clock = 0
+tat = wt = clock = count = 0
 
 numberOfProcesses = int(input("Enter total number of processes: "))
 a = b = p = 0
 for i in range(numberOfProcesses):
     print()
-    a = int(input("Enter arrival time for process {:d}: ".format(i+1)))
-    b = int(input("Enter burst time for process {:d}: ".format(i+1)))
-    p = int(input("Enter priority for process {:d}: ".format(i+1)))
-    arrivalTime.append(a)
-    burstTime.append(b)
-    priority.append(p)
+    arrivalTime.append(int(input("Enter arrival time for process {:d}: ".format(i+1))))
+    burstTime.append(int(input("Enter burst time for process {:d}: ".format(i+1))))
+    priority.append(int(input("Enter priority for process {:d}: ".format(i+1))))
 
+# the processes will be added to a waiting queue based on their arrival time
+# the processes will be based on their arrival time 
 while True:
-    if clock == sum(burstTime):
-        break
-    for i in range(numberOfProcesses):
-        if arrivalTime[i] <= clock:
-            for j in range(i):
-                if priority[i] > priority[j]:
-                    readyQueue.append(i)
+    if arrivalTime[count] == clock:
+        readyQueue.append(count)
+    count = count + 1
     clock = clock + 1
 
 for i in range(numberOfProcesses):
     table.add_row(["P{:d}".format(i+1), arrivalTime[i], burstTime[i],
-        priority[i], "", "", "", ""])
+        priority[i], completionTime[i], turnAroundTime[i],
+        waitingTime[i], responseTime[i]])
 
 print(table)
 print()
