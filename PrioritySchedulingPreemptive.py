@@ -11,7 +11,6 @@ turnAroundTime = [0] * numberOfProcesses
 startTime = [0] * numberOfProcesses
 completionTime = [0] * numberOfProcesses
 burstTime = [0] * numberOfProcesses
-priority = [0] * numberOfProcesses
 isCompleted = [0] * numberOfProcesses
 
 for i in range(numberOfProcesses):
