@@ -1,101 +1,61 @@
-totalprocess = 5
-proc = []
-for i in range(5):
-    l = []
-    for j in range(4):
-        l.append(0)
-    proc.append(l)
-  
-# Using FCFS Algorithm to find Waiting time 
-def get_wt_time( wt): 
-  
-    # declaring service array that stores
-    # cumulative burst time 
-    service = [0] * 5
-  
-    # Initilising initial elements 
-    # of the arrays 
-    service[0] = 0
-    wt[0] = 0
-  
-    for i in range(1, totalprocess): 
-        service[i] = proc[i - 1][1] + service[i - 1] 
-        wt[i] = service[i] - proc[i][0]
-  
-        # If waiting time is negative,
-        # change it o zero 
-        if(wt[i] < 0) :     
-            wt[i] = 0
-          
-def get_tat_time(tat, wt): 
-  
-    # Filling turnaroundtime array 
-    for i in range(totalprocess):
-        tat[i] = proc[i][1] + wt[i] 
-  
-def findgc():
-      
-    # Declare waiting time and
-    # turnaround time array 
-    wt = [0] * 5
-    tat = [0] * 5
-  
-    wavg = 0
-    tavg = 0
-  
-    # Function call to find waiting time array 
-    get_wt_time(wt) 
-      
-    # Function call to find turnaround time 
-    get_tat_time(tat, wt) 
-  
-    stime = [0] * 5
-    ctime = [0] * 5
-    stime[0] = 0
-    ctime[0] = stime[0] + tat[0]
-      
-    # calculating starting and ending time 
-    for i in range(1, totalprocess): 
-        stime[i] = ctime[i - 1] 
-        ctime[i] = proc[i][0] + tat[i] 
-  
-    print("Process_no\tStart_time\tComplete_time",
-               "\tTurn_Around_Time\tWaiting_Time")
-  
-    # display the process details 
-    for i in range(totalprocess):
-        wavg += wt[i] 
-        tavg += tat[i] 
-          
-        print(proc[i][3], "\t\t", stime[i], 
-                         "\t\t", end = " ")
-        print(ctime[i], "\t\t", tat[i], "\t\t\t", wt[i]) 
-  
-  
-    # display the average waiting time 
-    # and average turn around time 
-    print("Average waiting time is : ", end = " ")
-    print(wavg / totalprocess)
-    print("average turnaround time : " , end = " ")
-    print(tavg / totalprocess)
-  
-# Driver code 
-if __name__ =="__main__":
-    arrivaltime = [0, 1, 2, 3, 4]
-    bursttime = [3, 5, 1, 7, 4]
-    priority = [3, 4, 1, 7, 8] 
-      
-    for i in range(totalprocess): 
-  
-        proc[i][0] = arrivaltime[i] 
-        proc[i][1] = bursttime[i] 
-        proc[i][2] = priority[i] 
-        proc[i][3] = i + 1
-      
-    # Using inbuilt sort function 
-    proc = sorted (proc, key = lambda x:x[2])
-    proc = sorted (proc)
-      
-    # Calling function findgc for
-    # finding Gantt Chart 
-    findgc() 
+from prettytable import PrettyTable
+
+table = PrettyTable(
+    ["Processes", "Arrival Time", "Bust Time", "Completion Time", "Turn Around Time", "Waiting Time",
+     "Response Time"])
+ct = []
+tt = []
+wt = []
+rt = []
+process = int(input("\nEnter total number of processes = "))
+print("Enter Arrival Time - ")
+arrival = []
+for i in range(process):
+    at = int(input(f"Enter Arrival Time of P{i+1} = "))
+    arrival.append(at)
+    ct.append(0)
+    tt.append(0)
+    wt.append(0)
+    rt.append(0)
+print("\nEnter Bust Time - ")
+bust = []
+bust_copy = []
+for i in range(process):
+    bt = int(input(f"Enter Bust Time of P{i+1} = "))
+    bust.append(bt)
+    bust_copy.append(bt)
+
+clock = 0
+ready = []
+visited = []
+while True:
+    ind = 0
+    for i in range(process):
+        if arrival[i] <= clock and bust_copy[i] != 0 and i not in ready:
+            ready.append(i)
+
+    if len(ready) != 0:
+        min_bt = bust_copy[ready[0]]
+        ind = ready[0]
+        for i in range(len(ready)):
+            if min_bt > bust_copy[ready[i]]:
+                ind = ready[i]
+                min_bt = bust_copy[ready[i]]
+        if ind not in visited:
+            visited.append(ind)
+            rt[ind] = clock - arrival[ind]
+        clock += 1
+        bust_copy[ind] -= 1
+        if bust_copy[ind] == 0:
+            ct[ind] = clock
+            ready.remove(ind)
+    else:
+        clock += 1
+    if clock == sum(bust):
+        break
+for i in range(process):
+    tt[i] = ct[i] - arrival[i]
+    wt[i] = tt[i] - bust[i]
+for i in range(process):
+    table.add_row([f"p{i+1}", arrival[i], bust[i], ct[i], tt[i], wt[i], rt[i]])
+print(table)
