@@ -1,0 +1,21 @@
+letters = list()
+
+print("Letters stack -> ", letters)
+letters.append('a')
+print("Letters stack -> ", letters)
+letters.append('m')
+print("Letters stack -> ", letters)
+letters.append('p')
+print("Letters stack -> ", letters)
+letters.append('l')
+print("Letters stack -> ", letters)
+letters.append('e')
+
+print("Letters stack -> ", letters)
+
+print(letters.pop())
+print("Letters stack -> ", letters)
+print(letters.pop())
+print("Letters stack -> ", letters)
+print(letters.pop())
+print("Letters stack -> ", letters)
