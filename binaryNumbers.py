@@ -6,4 +6,8 @@ while number > 0:
     binary.append(number % 2)
     number = number // 2
 
-print(binary[::-1])
+binary.reverse()
+
+for i in binary:
+    print(i, end="")
+print()
