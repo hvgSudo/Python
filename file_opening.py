@@ -7,8 +7,8 @@ for line in fhandle :
 #    for i in file:
 #        print(i.strip())
 
-print("Adult.names")
-with open("/mnt/d/adult.names") as f:
+print("Breast Cancer.names")
+with open("/mnt/d/breast-cancer.names") as f:
     c = 0
     for i in f:
         #if c == 5:
@@ -16,8 +16,8 @@ with open("/mnt/d/adult.names") as f:
         print(i)
         c = c + 1
 
-print("Adult.data")
-with open("/mnt/d/adult.data") as file:
+print("Breast Cancer.data")
+with open("/mnt/d/breast-cancer.data") as file:
     count = 0
     for i in file:
         if count == 5:
