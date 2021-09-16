@@ -11,7 +11,7 @@ database = mysql.connector.connect(
 )
 
 cursor = database.cursor()
-query = """INSERT into Publishers (Pid, Pname) VALUES (%d, %s)"""
+query = """INSERT into Publisher (Pid, Pname) VALUES (%d, %s)"""
 
 for r in range(1, sheet.nrows):
     Pid = sheet.cell(r, 0).value
