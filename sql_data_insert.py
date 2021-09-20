@@ -1,26 +1,17 @@
-import xlrd
-import mysql.connector
-book = xlrd.open_workbook("/home/kingston-machismo/Documents/mySQL.xls")
-sheet = book.sheet_by_name("Sheet1")
+import mysql.connector as m
+import pandas as pd
 
-database = mysql.connector.connect(
-    host="localhost",
-    user="kingston-machismo",
-    passwd="AbcD123#",
-    database="dbms"
-)
+mydb = m.connect(host="localhost", user="kingston-machismo", passwd="AbcD123#", database="dbms")
 
-cursor = database.cursor()
-query = """INSERT into Publisher (Pid, Pname) VALUES (%d, %s)"""
+mycursor = mydb.cursor()
 
-for r in range(1, sheet.nrows):
-    Pid = sheet.cell(r, 0).value
-    Pname = sheet.cell(r, 1).value
-
-    values = (int(Pid), Pname)
-    cursor.execute(query, values)
-
-cursor.close()
-database.commit()
-database.close()
-print("Data entered")
+# mycursor.execute("create table SIULibrary(Slid int primary key, Lname varchar(30) not null, Location varchar(20) not null, Noofbranches int default '1')")
+query = "insert into SIULibrary(Slid, Lname, Location, Noofbranches) values(%d, %s, %s, %d)"
+inputData = pd.read_excel("D:\\sql_input_data.xlsx")
+data = inputData.values.tolist()
+tup = tuple()
+lst = list()
+for i in data:
+    lst.append(tuple(i))
+mycursor.executemany(query, lst)
+# mycursor.executemany("select * from flights")
