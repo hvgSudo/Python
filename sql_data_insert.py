@@ -1,11 +1,11 @@
 import mysql.connector as m
-import xlrd
+#import xlrd
 
 mydb = m.connect(host="localhost", user="kingston-machismo", passwd="AbcD123#", database="dbms")
 
 mycursor = mydb.cursor()
 
-l=list()
+'''l=list()
 loc = ("/mnt/d/sql_input_data.xls")
 a = xlrd.open_workbook(loc)
 sheet = a.sheet_by_index(0)
@@ -20,14 +20,14 @@ mydb.close()
 
 '''
 import pandas as pd
-query = "insert into SIULibrary(Slid, Lname, Location, Noofbranches) values(%d, %s, %s, %d)"
+#query = "insert into SIULibrary(Slid, Lname, Location, Noofbranches) values(%d, %s, %s, %d)"
 inputData = pd.read_excel("/mnt/d/sql_input_data.xlsx")
-data = inputData.values.tolist()
-lst = list()
+data = inputData.values.tolist() 
+lst = list() 
 for i in data:
     lst.append(tuple(i))
-query = "insert into ILibrary(Lid, Lname, city, Area, Slid) values (%s, %s, %s, %s, %s)"
+query = "insert into employee(Empid, Empname, Email, Salary, Lid) values (%s, %s, %s, %s, %s)"
 mycursor.executemany(query, lst)
 mydb.commit()
 mydb.close()
-'''
+# '''
