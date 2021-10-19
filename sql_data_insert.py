@@ -13,12 +13,12 @@ mycursor = mydb.cursor()
 import pandas as pd
 # query = "insert into SIULibrary(Slid, Lname, Location, Noofbranches) values(%d, %s, %s, %d)"
 # mycursor.execute(query)
-inputData = pd.read_excel("/home/kingston-machismo/Documents/sql_input_data.xlsx")
+inputData = pd.read_excel("/home/kingston-machismo/sql_input_data.xlsx")
 data = inputData.values.tolist() 
 lst = list() 
 for i in data:
     lst.append(tuple(i))
-query = "insert into employee(Empid, Empname, Email, Salary, Lid) values (%s, %s, %s, %s, %s)"
+query = "insert into Writes(Bid, Aid, Pid) values (%s, %s, %s)"
 mycursor.executemany(query, lst)
 mydb.commit()
 mydb.close()
