@@ -4,7 +4,7 @@
 # beneficial to run it.
 import mysql.connector as m
 
-mydb = m.connect(host="localhost", user="kingston-machismo", passwd="AbcD123#", database="dbms")
+mydb = m.connect(host="localhost", user="kingston-machismo", passwd="ubuntu", database="dbms")
 
 mycursor = mydb.cursor()
 
@@ -18,7 +18,7 @@ data = inputData.values.tolist()
 lst = list() 
 for i in data:
     lst.append(tuple(i))
-query = "insert into books_new(Bid, Bname, Price, Lid) values (%s, %s, %s, %s)"
+query = "insert into employee(Empid, Empname, Email, Salary, Lid) values (%s, %s, %s, %s, %s)"
 mycursor.executemany(query, lst)
 mydb.commit()
 mydb.close()
