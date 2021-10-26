@@ -18,7 +18,7 @@ data = inputData.values.tolist()
 lst = list() 
 for i in data:
     lst.append(tuple(i))
-query = "insert into books(Bid, Bname, Price, Lid) values (%s, %s, %s, %s)"
+query = "insert into books_new(Bid, Bname, Price, Lid) values (%s, %s, %s, %s)"
 mycursor.executemany(query, lst)
 mydb.commit()
 mydb.close()
